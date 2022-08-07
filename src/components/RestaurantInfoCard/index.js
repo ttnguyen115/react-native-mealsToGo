@@ -1,11 +1,19 @@
 import PropTypes from "prop-types";
-import { Image, Text } from "react-native";
-import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
-import styled from "styled-components/native";
 import open from "../../../assets/open";
 import star from "../../../assets/star";
 import Spacer from "../Spacer";
+import Typography from "../Typography";
+import {
+  Address,
+  Icon,
+  Info,
+  Rating,
+  RestaurantCard,
+  RestaurantCardCover,
+  Section,
+  SectionEnd,
+} from "./styles";
 
 const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -26,7 +34,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     <RestaurantCard elevation={5}>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
-        <Title>{name}</Title>
+        <Typography variant="label">{name}</Typography>
         <Section>
           <Rating>
             {ratingArray.map((item, index) => (
@@ -35,15 +43,13 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
           </Rating>
           <SectionEnd>
             {isClosedTemporarily && (
-              <Text variant="label" style={{ color: "red" }}>
-                CLOSED TEMPORARILY
-              </Text>
+              <Typography variant="error">CLOSED TEMPORARILY</Typography>
             )}
             <Spacer position="left" size="large">
-              {isOpenNow && <Open xml={open} width={20} height={20} />}
+              {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
             </Spacer>
             <Spacer position="left" size="large">
-              <Image style={{ width: 15, height: 15 }} source={{ uri: icon }} />
+              <Icon source={{ uri: icon }} />
             </Spacer>
           </SectionEnd>
         </Section>
@@ -56,49 +62,5 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
 RestaurantInfoCard.propTypes = {
   restaurant: PropTypes.object,
 };
-
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space[3]};
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Title = styled.Text`
-  font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.body};
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
-
-const Address = styled.Text`
-  font-family: ${(props) => props.theme.fonts.body};
-`;
-
-const Info = styled.View`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const Rating = styled.View`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space[2]};
-  padding-bottom: ${(props) => props.theme.space[2]};
-`;
-
-const Section = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const SectionEnd = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-
-const Open = styled(SvgXml)`
-  flex-direction: row;
-`;
 
 export default RestaurantInfoCard;
