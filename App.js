@@ -12,6 +12,7 @@ import { Text } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/lib/styled-components";
 import RestaurantsScreen from "./src/screens/Restaurants";
+import { LocationContextProvider } from "./src/services/location/context";
 import { RestaurantContextProvider } from "./src/services/restaurants/context";
 
 const Tab = createBottomTabNavigator();
@@ -50,16 +51,18 @@ export default function App() {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <RestaurantContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator screenOptions={createScreenOptions}>
-              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-              <Tab.Screen name="Map" component={MapScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-          <ExpoStatusBar style="auto" />
-        </RestaurantContextProvider>
+        <LocationContextProvider>
+          <RestaurantContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator screenOptions={createScreenOptions}>
+                <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+                <Tab.Screen name="Map" component={MapScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+            <ExpoStatusBar style="auto" />
+          </RestaurantContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
     </React.Fragment>
   );
