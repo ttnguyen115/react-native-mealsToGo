@@ -9,7 +9,7 @@ import Spacer from "../../components/Spacer";
 import { RestaurantContext } from "../../services/restaurants/context";
 
 const RestaurantsScreen = () => {
-  const { loading, error, restaurants } = React.useContext(RestaurantContext);
+  const { loading, restaurants } = React.useContext(RestaurantContext);
 
   return (
     <SafeArea>

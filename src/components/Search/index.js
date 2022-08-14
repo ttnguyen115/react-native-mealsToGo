@@ -7,11 +7,6 @@ const Search = () => {
   const { keyword, search } = React.useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = React.useState(keyword);
 
-  React.useEffect(() => {
-    search(searchKeyword);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <SearchContainer>
       <Searchbar
