@@ -60,10 +60,10 @@ export default function App() {
                 <Tab.Screen name="Settings" component={SettingsScreen} />
               </Tab.Navigator>
             </NavigationContainer>
-            <ExpoStatusBar style="auto" />
           </RestaurantContextProvider>
         </LocationContextProvider>
       </ThemeProvider>
+      <ExpoStatusBar style="auto" />
     </React.Fragment>
   );
 }

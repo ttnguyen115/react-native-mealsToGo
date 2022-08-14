@@ -11,16 +11,13 @@ import { RestaurantContext } from "../../services/restaurants/context";
 const RestaurantsScreen = () => {
   const { loading, error, restaurants } = React.useContext(RestaurantContext);
 
-  if (loading) {
-    return (
-      <LoadingContainer>
-        <Loading size={50} animating={true} color={Colors.blue300} />
-      </LoadingContainer>
-    );
-  }
-
   return (
     <SafeArea>
+      {loading && (
+        <LoadingContainer>
+          <Loading size={50} animating={true} color={Colors.blue300} />
+        </LoadingContainer>
+      )}
       <Search />
       <RestaurantList
         data={restaurants}

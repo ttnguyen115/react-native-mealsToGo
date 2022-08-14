@@ -1,6 +1,6 @@
-import PropTypes from "prop-types";
 import React from "react";
 import { restaurantsRequest, restaurantsTransform } from ".";
+import { LocationContext } from "../location/context";
 
 export const RestaurantContext = React.createContext();
 
@@ -8,15 +8,18 @@ export const RestaurantContextProvider = ({ children }) => {
   const [restaurants, setRestaurants] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const { location } = React.useContext(LocationContext);
 
-  const retrieveRestaurants = () => {
+  const retrieveRestaurants = (loc) => {
     setLoading(true);
+    setRestaurants([]);
+
     setTimeout(() => {
-      restaurantsRequest()
+      restaurantsRequest(loc)
         .then(restaurantsTransform)
-        .then((data) => {
+        .then((results) => {
           setLoading(false);
-          setRestaurants(data);
+          setRestaurants(results);
         })
         .catch((err) => {
           setLoading(false);
@@ -26,16 +29,15 @@ export const RestaurantContextProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
-    retrieveRestaurants();
-  }, []);
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      retrieveRestaurants(locationString);
+    }
+  }, [location]);
 
   return (
     <RestaurantContext.Provider value={{ restaurants, loading, error }}>
       {children}
     </RestaurantContext.Provider>
   );
-};
-
-RestaurantContextProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element),
 };

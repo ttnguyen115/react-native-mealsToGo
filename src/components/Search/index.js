@@ -7,16 +7,18 @@ const Search = () => {
   const { keyword, search } = React.useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = React.useState(keyword);
 
-  const handleSubmitEditing = () => search(searchKeyword);
-  const handleChangeText = (text) => setSearchKeyword(text);
+  React.useEffect(() => {
+    search(searchKeyword);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SearchContainer>
       <Searchbar
         placeholder="Search for a location"
         value={searchKeyword}
-        onSubmitEditing={handleSubmitEditing}
-        onChangeText={handleChangeText}
+        onSubmitEditing={() => search(searchKeyword)}
+        onChangeText={(text) => setSearchKeyword(text)}
       />
     </SearchContainer>
   );
