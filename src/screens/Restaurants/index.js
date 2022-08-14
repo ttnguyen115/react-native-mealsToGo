@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, FlatList } from "react-native";
+import { ActivityIndicator, FlatList, TouchableOpacity } from "react-native";
 import { Colors } from "react-native-paper";
 import styled from "styled-components/native";
 import RestaurantInfoCard from "../../components/RestaurantInfoCard";
@@ -8,7 +8,7 @@ import Search from "../../components/Search";
 import Spacer from "../../components/Spacer";
 import { RestaurantContext } from "../../services/restaurants/context";
 
-const RestaurantsScreen = () => {
+const RestaurantsScreen = ({ navigation }) => {
   const { loading, restaurants } = React.useContext(RestaurantContext);
 
   return (
@@ -22,11 +22,13 @@ const RestaurantsScreen = () => {
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => (
-          <React.Fragment>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("RestaurantDetail")}
+          >
             <Spacer position="bottom" size="large">
               <RestaurantInfoCard restaurant={item} />
             </Spacer>
-          </React.Fragment>
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.name}
       />
