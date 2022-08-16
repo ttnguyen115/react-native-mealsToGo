@@ -1,16 +1,22 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Searchbar } from "react-native-paper";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { LocationContext } from "../../services/location/context";
 
-const Search = () => {
+const Search = ({ screen }) => {
   const { keyword, search } = React.useContext(LocationContext);
   const [searchKeyword, setSearchKeyword] = React.useState(keyword);
 
+  React.useEffect(() => {
+    setSearchKeyword(keyword);
+  }, [keyword]);
+
   return (
-    <SearchContainer>
+    <SearchContainer screen={screen}>
       <Searchbar
         placeholder="Search for a location"
+        icon={screen}
         value={searchKeyword}
         onSubmitEditing={() => search(searchKeyword)}
         onChangeText={(text) => setSearchKeyword(text)}
@@ -21,8 +27,18 @@ const Search = () => {
 
 const SearchContainer = styled.View`
   padding: ${(props) => props.theme.space[3]};
+  ${(props) =>
+    props.screen === "map" &&
+    css`
+      position: absolute;
+      z-index: 999;
+      top: 40px;
+      width: 100%;
+    `}
 `;
 
-Search.propTypes = {};
+Search.propTypes = {
+  screen: PropTypes.string,
+};
 
 export default Search;

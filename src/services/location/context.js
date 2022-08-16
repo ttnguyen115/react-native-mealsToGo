@@ -24,7 +24,6 @@ export const LocationContextProvider = ({ children }) => {
       .then((result) => {
         setLoading(false);
         setLocation(result);
-        console.log(result);
       })
       .catch((err) => {
         setLoading(false);

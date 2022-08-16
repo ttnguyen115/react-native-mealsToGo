@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { Text } from "react-native";
+import MapScreen from "../../screens/MapScreen";
 import { SafeArea } from "../SafeArea";
 import RestaurantNavigator from "./RestaurantNavigator";
 
@@ -11,11 +12,6 @@ const Tab = createBottomTabNavigator();
 const SettingsScreen = () => (
   <SafeArea>
     <Text>Settings</Text>
-  </SafeArea>
-);
-const MapScreen = () => (
-  <SafeArea>
-    <Text>Map</Text>
   </SafeArea>
 );
 
