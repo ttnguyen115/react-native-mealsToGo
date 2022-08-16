@@ -3,12 +3,21 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { Text } from "react-native";
+import { SafeArea } from "../SafeArea";
 import RestaurantNavigator from "./RestaurantNavigator";
 
 const Tab = createBottomTabNavigator();
 
-const SettingsScreen = () => <Text>Settings</Text>;
-const MapScreen = () => <Text>Map</Text>;
+const SettingsScreen = () => (
+  <SafeArea>
+    <Text>Settings</Text>
+  </SafeArea>
+);
+const MapScreen = () => (
+  <SafeArea>
+    <Text>Map</Text>
+  </SafeArea>
+);
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
@@ -20,6 +29,7 @@ const Navigation = () => {
   const createScreenOptions = ({ route }) => {
     const iconName = TAB_ICON[route.name];
     return {
+      headerShown: false,
       // eslint-disable-next-line react/no-unstable-nested-components
       tabBarIcon: ({ size, color }) => (
         <Ionicons name={iconName} size={size} color={color} />
