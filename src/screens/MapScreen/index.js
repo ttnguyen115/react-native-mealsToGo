@@ -6,7 +6,7 @@ import Search from "../../components/Search";
 import { LocationContext } from "../../services/location/context";
 import { RestaurantContext } from "../../services/restaurants/context";
 
-const MapScreen = () => {
+const MapScreen = ({ navigation }) => {
   const { location } = React.useContext(LocationContext);
   const { viewport, lat, lng } = location;
   const { restaurants = [] } = React.useContext(RestaurantContext);
@@ -40,7 +40,11 @@ const MapScreen = () => {
                 longitude: lngPos,
               }}
             >
-              <MapView.Callout>
+              <MapView.Callout
+                onPress={() =>
+                  navigation.navigate("RestaurantDetail", { restaurant })
+                }
+              >
                 <MapCallout restaurant={restaurant} />
               </MapView.Callout>
             </MapView.Marker>
