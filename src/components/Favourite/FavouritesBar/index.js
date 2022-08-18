@@ -16,7 +16,7 @@ const FavouritesBar = ({ favourites, onNavigate }) => {
 
   return (
     <FavouritesWrapper>
-      <Spacer variant="left.large">
+      <Spacer position="left" size="large">
         <Typography variant="caption">Favourites</Typography>
       </Spacer>
 

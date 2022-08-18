@@ -3,9 +3,9 @@ import { Platform, Text } from "react-native";
 import WebView from "react-native-webview";
 import styled from "styled-components/native";
 
-const CompactRestaurantInfo = ({ restaurant }) => {
+const CompactRestaurantInfo = ({ restaurant, isMap }) => {
   const isAndroid = Platform.OS === "android";
-  const Image = isAndroid ? CompactWebview : CompactImage;
+  const Image = isAndroid && isMap ? CompactWebview : CompactImage;
 
   return (
     <Item>
