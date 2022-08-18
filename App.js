@@ -8,6 +8,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import Navigation from "./src/components/Navigation";
 import { theme } from "./src/lib/styled-components";
+import { FavouritesContextProvider } from "./src/services/favourites/context";
 import { LocationContextProvider } from "./src/services/location/context";
 import { RestaurantContextProvider } from "./src/services/restaurants/context";
 
@@ -26,11 +27,13 @@ export default function App() {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantContextProvider>
-            <Navigation />
-          </RestaurantContextProvider>
-        </LocationContextProvider>
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantContextProvider>
+              <Navigation />
+            </RestaurantContextProvider>
+          </LocationContextProvider>
+        </FavouritesContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </React.Fragment>

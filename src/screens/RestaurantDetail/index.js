@@ -63,7 +63,7 @@ const RestaurantDetail = ({ route }) => {
 };
 
 RestaurantDetail.propTypes = {
-  route: PropTypes.objectOf(PropTypes.string),
+  route: PropTypes.object,
 };
 
 export default RestaurantDetail;
