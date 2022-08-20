@@ -33,8 +33,8 @@ const Spacer = ({ position = "top", size = "small", children }) => {
 };
 
 Spacer.propTypes = {
-  position: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
+  position: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default Spacer;

@@ -24,7 +24,7 @@ const TAB_ICON = {
 };
 
 const Navigation = () => {
-  const { user: isAuthenticated } = React.useContext(AuthenticationContext);
+  const { isAuthenticated } = React.useContext(AuthenticationContext);
   const createScreenOptions = ({ route }) => {
     const iconName = TAB_ICON[route.name];
     return {

@@ -1,5 +1,4 @@
 import { auth } from "../../lib/firebase";
 
-const loginRequest = (email, password) => {
+export const loginRequest = (email, password) =>
   auth.signInWithEmailAndPassword(email, password);
-};

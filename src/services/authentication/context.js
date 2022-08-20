@@ -1,5 +1,5 @@
 import React from "react";
-import { loginRequest } from ".";
+import { loginRequest } from "./index";
 
 export const AuthenticationContext = React.createContext();
 
@@ -16,13 +16,15 @@ export const AuthenticationContextProvider = ({ children }) => {
         setLoading(false);
       })
       .catch((e) => {
-        setError(e);
+        setError(e.toString());
         setLoading(false);
       });
   };
 
   return (
-    <AuthenticationContext.Provider value={{ user, loading, error, onLogin }}>
+    <AuthenticationContext.Provider
+      value={{ user, loading, error, onLogin, isAuthenticated: !!user }}
+    >
       {children}
     </AuthenticationContext.Provider>
   );
