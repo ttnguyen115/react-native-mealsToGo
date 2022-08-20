@@ -5,12 +5,14 @@ import {
   AccountContainer,
   AccountCover,
   AuthButton,
+  Title,
 } from "./style";
 
 const AccountScreen = ({ navigation }) => {
   return (
     <AccountBackground>
       <AccountCover />
+      <Title>Meals To Go</Title>
       <AccountContainer>
         <AuthButton
           icon="lock-open-outline"

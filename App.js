@@ -9,9 +9,6 @@ import { ThemeProvider } from "styled-components/native";
 import Navigation from "./src/components/Navigation";
 import { theme } from "./src/lib/styled-components";
 import { AuthenticationContextProvider } from "./src/services/authentication/context";
-import { FavouritesContextProvider } from "./src/services/favourites/context";
-import { LocationContextProvider } from "./src/services/location/context";
-import { RestaurantContextProvider } from "./src/services/restaurants/context";
 
 export default function App() {
   const [oswaldLoaded] = useOswald({
@@ -29,13 +26,7 @@ export default function App() {
     <React.Fragment>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantContextProvider>
-                <Navigation />
-              </RestaurantContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />

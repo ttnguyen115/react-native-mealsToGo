@@ -1,5 +1,6 @@
 import React from "react";
 import { loginRequest, registerRequest } from ".";
+import { auth } from "../../lib/firebase";
 
 export const AuthenticationContext = React.createContext();
 
@@ -7,6 +8,15 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [error, setError] = React.useState(null);
+
+  auth.onAuthStateChanged((loggedUser) => {
+    if (loggedUser) {
+      setUser(loggedUser);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  });
 
   const onLogin = (email, password) => {
     setLoading(true);
@@ -38,6 +48,14 @@ export const AuthenticationContextProvider = ({ children }) => {
       });
   };
 
+  const onLogout = () => {
+    setUser(null);
+    auth.signOut().then(() => {
+      setUser(null);
+      setError(null);
+    });
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -46,6 +64,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         error,
         onLogin,
         onRegister,
+        onLogout,
         isAuthenticated: !!user,
       }}
     >

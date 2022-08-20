@@ -48,7 +48,7 @@ const LoginScreen = ({ navigation }) => {
         )}
         <Spacer size="large">
           {loading ? (
-            <ActivityIndicator animating color={Colors.blue300} />
+            <ActivityIndicator animating={true} color={Colors.blue300} />
           ) : (
             <AuthButton
               icon="lock-open-outline"
