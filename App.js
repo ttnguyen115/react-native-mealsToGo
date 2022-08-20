@@ -7,12 +7,25 @@ import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import Navigation from "./src/components/Navigation";
+import { auth } from "./src/lib/firebase";
 import { theme } from "./src/lib/styled-components";
 import { FavouritesContextProvider } from "./src/services/favourites/context";
 import { LocationContextProvider } from "./src/services/location/context";
 import { RestaurantContextProvider } from "./src/services/restaurants/context";
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  React.useEffect(() => {
+    auth
+      .signInWithEmailAndPassword("email@email.com", "password")
+      .then((user) => {
+        console.log(user);
+        setIsAuthenticated(true);
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
@@ -21,6 +34,10 @@ export default function App() {
   });
 
   if (!oswaldLoaded || !latoLoaded) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
     return null;
   }
 
