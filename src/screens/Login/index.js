@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import Spacer from "../../components/Spacer";
 import Typography from "../../components/Typography";
 import { AuthenticationContext } from "../../services/authentication/context";
@@ -8,18 +9,19 @@ import {
   AccountCover,
   AuthButton,
   AuthInput,
+  ErrorContainer,
+  Title,
 } from "../Account/style";
 
-const LoginScreen = () => {
-  const initialState = { email: "", password: "" };
-  const [loginUser, setLoginUser] = React.useState(initialState);
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const { onLogin, error } = React.useContext(AuthenticationContext);
+  const { onLogin, error, loading } = React.useContext(AuthenticationContext);
 
   return (
     <AccountBackground>
       <AccountCover />
+      <Title>Meals To Go</Title>
       <AccountContainer>
         <AuthInput
           label="E-mail"
@@ -35,24 +37,34 @@ const LoginScreen = () => {
             value={password}
             textContentType="password"
             secureTextEntry
-            secure
             autoCapitalize="none"
             onChangeText={(u) => setPassword(u)}
           />
         </Spacer>
         {error && (
-          <Spacer size="large">
+          <ErrorContainer size="large">
             <Typography variant="error">{error}</Typography>
-          </Spacer>
+          </ErrorContainer>
         )}
         <Spacer size="large">
-          <AuthButton
-            icon="lock-open-outline"
-            mode="contained"
-            onPress={() => onLogin(email, password)}
-          />
+          {loading ? (
+            <ActivityIndicator animating color={Colors.blue300} />
+          ) : (
+            <AuthButton
+              icon="lock-open-outline"
+              mode="contained"
+              onPress={() => onLogin(email, password)}
+            >
+              Login
+            </AuthButton>
+          )}
         </Spacer>
       </AccountContainer>
+      <Spacer size="large">
+        <AuthButton mode="contained" onPress={() => navigation.goBack()}>
+          Back
+        </AuthButton>
+      </Spacer>
     </AccountBackground>
   );
 };
