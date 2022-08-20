@@ -9,6 +9,7 @@ import { ThemeProvider } from "styled-components/native";
 import Navigation from "./src/components/Navigation";
 import { auth } from "./src/lib/firebase";
 import { theme } from "./src/lib/styled-components";
+import { AuthenticationContextProvider } from "./src/services/authentication/context";
 import { FavouritesContextProvider } from "./src/services/favourites/context";
 import { LocationContextProvider } from "./src/services/location/context";
 import { RestaurantContextProvider } from "./src/services/restaurants/context";
@@ -37,20 +38,18 @@ export default function App() {
     return null;
   }
 
-  if (!isAuthenticated) {
-    return null;
-  }
-
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantContextProvider>
-              <Navigation />
-            </RestaurantContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              <RestaurantContextProvider>
+                <Navigation />
+              </RestaurantContextProvider>
+            </LocationContextProvider>
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </React.Fragment>
