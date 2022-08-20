@@ -2,28 +2,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import { Button, Text } from "react-native";
 import MapScreen from "../../screens/MapScreen";
+import SettingsScreen from "../../screens/Settings";
 import { AuthenticationContext } from "../../services/authentication/context";
 import { FavouritesContextProvider } from "../../services/favourites/context";
 import { LocationContextProvider } from "../../services/location/context";
 import { RestaurantContextProvider } from "../../services/restaurants/context";
-import { SafeArea } from "../SafeArea";
 import AccountNavigator from "./AccountNavigator";
 import RestaurantNavigator from "./RestaurantNavigator";
 
 const Tab = createBottomTabNavigator();
-
-const SettingsScreen = () => {
-  const { onLogout } = React.useContext(AuthenticationContext);
-
-  return (
-    <SafeArea>
-      <Text>Settings</Text>
-      <Button title="Logout" onPress={() => onLogout()} />
-    </SafeArea>
-  );
-};
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
