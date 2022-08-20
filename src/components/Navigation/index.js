@@ -4,7 +4,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { Text } from "react-native";
 import MapScreen from "../../screens/MapScreen";
+import { AuthenticationContext } from "../../services/authentication/context";
 import { SafeArea } from "../SafeArea";
+import AccountNavigator from "./AccountNavigator";
 import RestaurantNavigator from "./RestaurantNavigator";
 
 const Tab = createBottomTabNavigator();
@@ -22,6 +24,7 @@ const TAB_ICON = {
 };
 
 const Navigation = () => {
+  const { user: isAuthenticated } = React.useContext(AuthenticationContext);
   const createScreenOptions = ({ route }) => {
     const iconName = TAB_ICON[route.name];
     return {
@@ -34,13 +37,19 @@ const Navigation = () => {
   };
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Restaurants" component={RestaurantNavigator} />
-        <Tab.Screen name="Map" component={MapScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <React.Fragment>
+      <NavigationContainer>
+        {isAuthenticated ? (
+          <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Restaurants" component={RestaurantNavigator} />
+            <Tab.Screen name="Map" component={MapScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+          </Tab.Navigator>
+        ) : (
+          <AccountNavigator />
+        )}
+      </NavigationContainer>
+    </React.Fragment>
   );
 };
 
