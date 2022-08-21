@@ -7,6 +7,16 @@ export const CartContextProvider = ({ children }) => {
   const { user } = React.useContext(AuthenticationContext);
   const [cart, setCart] = React.useState([]);
   const [restaurant, setRestaurant] = React.useState(null);
+  const [sum, setSum] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!cart.length) {
+      setSum(0);
+      return;
+    }
+    const newSum = cart.reduce((acc, { price }) => (acc += price), 0);
+    setSum(newSum);
+  }, [cart]);
 
   const add = (item, rst) => {
     if (!restaurant || restaurant.placeId !== rst.placeId) {
@@ -25,7 +35,7 @@ export const CartContextProvider = ({ children }) => {
   //AsyncStorage.setItem();
   return (
     <CartContext.Provider
-      value={{ cart, addToCart: add, clearCart: clear, restaurant }}
+      value={{ cart, addToCart: add, clearCart: clear, restaurant, sum }}
     >
       {children}
     </CartContext.Provider>

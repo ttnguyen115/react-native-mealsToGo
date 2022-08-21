@@ -1,12 +1,16 @@
 import React from "react";
-import { Text } from "react-native";
+import { ScrollView, Text } from "react-native";
+import { List } from "react-native-paper";
 import CreditCardInput from "../../components/CreditCardInput";
+import RestaurantInfoCard from "../../components/RestaurantInfoCard";
 import { SafeArea } from "../../components/SafeArea";
+import Spacer from "../../components/Spacer";
+import Typography from "../../components/Typography";
 import { CartContext } from "../../services/cart/context";
 import { CartIcon, CartIconContainer } from "./style";
 
 const CheckoutScreen = () => {
-  const { cart, restaurant } = React.useContext(CartContext);
+  const { cart, restaurant, sum } = React.useContext(CartContext);
 
   if (!cart.length || !restaurant) {
     return (
@@ -21,9 +25,21 @@ const CheckoutScreen = () => {
 
   return (
     <SafeArea>
-      <Text>{JSON.stringify(cart)}</Text>
-      <Text>{JSON.stringify(restaurant)}</Text>
-      <CreditCardInput />
+      <RestaurantInfoCard restaurant={restaurant} />
+      <ScrollView>
+        <Spacer position="left" size="medium">
+          <Spacer position="top" size="large">
+            <Typography>Your Order</Typography>
+          </Spacer>
+          <List.Section>
+            {cart.map(({ item, price }) => {
+              return <List.Item title={`${item} - ${price / 100}`} />;
+            })}
+          </List.Section>
+          <Typography>Total: {sum / 100}</Typography>
+        </Spacer>
+        <CreditCardInput />
+      </ScrollView>
     </SafeArea>
   );
 };
