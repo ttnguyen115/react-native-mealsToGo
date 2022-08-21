@@ -1,4 +1,7 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import { Avatar, List } from "react-native-paper";
 import styled from "styled-components/native";
 import { SafeArea } from "../../components/SafeArea";
@@ -8,25 +11,46 @@ import { AuthenticationContext } from "../../services/authentication/context";
 
 const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = React.useContext(AuthenticationContext);
+  const [photo, setPhoto] = React.useState(null);
+
+  const getProfilePicture = async (currentUser) => {
+    const photoUri = await AsyncStorage.getItem(`${currentUser.uid}-photo`);
+    setPhoto(photoUri);
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      getProfilePicture(user);
+    }, [user])
+  );
 
   return (
     <SafeArea>
       <AvatarContainer>
-        <Avatar.Icon size={180} icon="human" backgroundColor="#2182BD" />
+        <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
+          {!photo && (
+            <Avatar.Icon size={180} icon="human" backgroundColor="#2182BD" />
+          )}
+          {photo && (
+            <Avatar.Image
+              size={180}
+              source={{ uri: photo }}
+              backgroundColor="#2182BD"
+            />
+          )}
+        </TouchableOpacity>
         <Spacer position="top" size="large">
           <Typography variant="label">{user.email}</Typography>
         </Spacer>
       </AvatarContainer>
       <List.Section>
         <SettingsItem
-          style={{ padding: 16 }}
           title="Favourites"
           description="View your favourites"
           left={(props) => <List.Icon {...props} color="black" icon="heart" />}
           onPress={() => navigation.navigate("Favourites")}
         />
         <SettingsItem
-          style={{ padding: 16 }}
           title="Logout"
           left={(props) => <List.Icon {...props} color="black" icon="door" />}
           onPress={onLogout}
