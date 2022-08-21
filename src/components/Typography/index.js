@@ -51,7 +51,7 @@ Typography.defaultProps = {
 };
 
 Typography.propTypes = {
-  variant: PropTypes.string.isRequired,
+  variant: PropTypes.string,
 };
 
 export default Typography;

@@ -3,13 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import MapScreen from "../../screens/MapScreen";
-import SettingsScreen from "../../screens/Settings";
 import { AuthenticationContext } from "../../services/authentication/context";
 import { FavouritesContextProvider } from "../../services/favourites/context";
 import { LocationContextProvider } from "../../services/location/context";
 import { RestaurantContextProvider } from "../../services/restaurants/context";
 import AccountNavigator from "./AccountNavigator";
 import RestaurantNavigator from "./RestaurantNavigator";
+import SettingsNavigator from "./SettingsNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +44,7 @@ const Navigation = () => {
                   component={RestaurantNavigator}
                 />
                 <Tab.Screen name="Map" component={MapScreen} />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
+                <Tab.Screen name="Settings" component={SettingsNavigator} />
               </Tab.Navigator>
             ) : (
               <AccountNavigator />

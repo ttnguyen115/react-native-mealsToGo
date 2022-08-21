@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/stack";
 import React from "react";
 import FavouritesScreen from "../../../screens/Favourites";
-//import SettingsScreen from "../../../screens/Settings";
+import SettingsScreen from "../../../screens/Settings";
 
 const SettingsStack = createStackNavigator();
 
@@ -13,19 +13,17 @@ const SettingsNavigator = ({ route, navigation }) => {
     <SettingsStack.Navigator
       screenOptions={{
         headerShown: "screen",
+      }}
+      defaultScreenOptions={{
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}
     >
       <SettingsStack.Screen
         options={{ header: () => null }}
-        name="Favourites"
-        component={FavouritesScreen}
-      />
-      <SettingsStack.Screen
-        options={{ header: () => null }}
         name="Settings"
-        component={() => null}
+        component={SettingsScreen}
       />
+      <SettingsStack.Screen name="Favourites" component={FavouritesScreen} />
     </SettingsStack.Navigator>
   );
 };
