@@ -2,6 +2,7 @@ import React from "react";
 import { ActivityIndicator, TouchableOpacity } from "react-native";
 import { Colors } from "react-native-paper";
 import styled from "styled-components/native";
+import Animations from "../../components/Animations";
 import FavouritesBar from "../../components/Favourite/FavouritesBar";
 import RestaurantInfoCard from "../../components/RestaurantInfoCard";
 import { SafeArea } from "../../components/SafeArea";
@@ -44,7 +45,9 @@ const RestaurantsScreen = ({ navigation }) => {
             }
           >
             <Spacer position="bottom" size="large">
-              <RestaurantInfoCard restaurant={item} />
+              <Animations>
+                <RestaurantInfoCard restaurant={item} />
+              </Animations>
             </Spacer>
           </TouchableOpacity>
         )}
