@@ -7,10 +7,17 @@ import { SafeArea } from "../../components/SafeArea";
 import Spacer from "../../components/Spacer";
 import Typography from "../../components/Typography";
 import { CartContext } from "../../services/cart/context";
-import { CartIcon, CartIconContainer } from "./style";
+import {
+  CartIcon,
+  CartIconContainer,
+  ClearButton,
+  NameInput,
+  PayButton,
+} from "./style";
 
 const CheckoutScreen = () => {
-  const { cart, restaurant, sum } = React.useContext(CartContext);
+  const { cart, restaurant, sum, clearCart } = React.useContext(CartContext);
+  const [name, setName] = React.useState("");
 
   if (!cart.length || !restaurant) {
     return (
@@ -38,7 +45,24 @@ const CheckoutScreen = () => {
           </List.Section>
           <Typography>Total: {sum / 100}</Typography>
         </Spacer>
-        <CreditCardInput />
+        <NameInput label="Name" value={name} onChangeText={(e) => setName(e)} />
+        <Spacer position="top" size="large">
+          {name.length > 0 && <CreditCardInput name={name} />}
+        </Spacer>
+        <Spacer position="top" size="large">
+          <PayButton
+            icon="cash"
+            mode="contained"
+            onPress={() => console.log("success!")}
+          >
+            Pay
+          </PayButton>
+        </Spacer>
+        <Spacer position="top" size="large">
+          <ClearButton icon="cart-off" mode="contained" onPress={clearCart}>
+            Clear Cart
+          </ClearButton>
+        </Spacer>
       </ScrollView>
     </SafeArea>
   );
